@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Starter English – Pronouns & Family</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+
+h1 {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,.3);
+}
+
+.timer {
+    background: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.stat-box {
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.progress-container {
+    width: 100%;
+    height: 22px;
+    background: rgba(255,255,255,.4);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,#2ecc71,#27ae60);
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.question {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,.3);
+}
+
+.question-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.blank {
+    color: #e74c3c;
+    border-bottom: 3px solid #e74c3c;
+    padding: 0 12px;
+}
+
+.image-box {
+    margin: 15px 0;
+}
+
+.image-box img {
+    max-width: 180px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,.15);
+}
+
+.image-label {
+    margin-top: 8px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+    margin: 20px 0;
+}
+
+button {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #3498db;
+    color: #fff;
+}
+
+button.correct { background: #2ecc71; }
+button.wrong { background: #e74c3c; }
+
+button:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+.listen-btn {
+    background: #f39c12;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#certificate {
+    display: none;
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.3);
+}
+
+.translation {
+    text-align: left;
+    margin-top: 25px;
+    background: #fdf6e3;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+@media(max-width:600px){
+    .options-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>🎓 English Pronouns & Family Test</h1>
+
+<div class="timer" id="timer">25:00</div>
+
+<div class="stats">
+    <div class="stat-box">Q: <span id="questionNumber">1/20</span></div>
+    <div class="stat-box">Score: <span id="currentScore">0</span></div>
+</div>
+
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar">0%</div>
+</div>
+
+<div id="quiz"></div>
+
+<div id="certificate">
+    <h2>🎉 Congratulations!</h2>
+    <p id="finalScore"></p>
+    <p id="scoreMessage"></p>
+
+    <div class="translation">
+        <h3>📘 Arabic Translations</h3>
+        <ul id="translationList"></ul>
+    </div>
+
+    <button onclick="restartQuiz()">🔁 Start Again</button>
+</div>
+</div>
+
+<script>
+const allQuestions = [
+ {sentence:"___ am your father.",options:["I","He","She","They"],answer:"I",img:"https://cdn-icons-png.flaticon.com/512/1256/1256650.png",label:"Father",arabic:"أنا والدك."},
+ {sentence:"___ is my mother.",options:["I","He","She","We"],answer:"She",img:"https://cdn-icons-png.flaticon.com/512/706/706807.png",label:"Mother",arabic:"هي والدتي."},
+ {sentence:"___ is my brother.",options:["He","She","I","They"],answer:"He",img:"https://cdn-icons-png.flaticon.com/512/681/681494.png",label:"Brother",arabic:"هو أخي."},
+ {sentence:"___ is my sister.",options:["She","I","He","You"],answer:"She",img:"https://cdn-icons-png.flaticon.com/512/681/681519.png",label:"Sister",arabic:"هي أختي."},
+ {sentence:"___ are my parents.",options:["We","They","I","He"],answer:"They",img:"https://cdn-icons-png.flaticon.com/512/1256/1256648.png",label:"Parents",arabic:"هم والداي."},
+ {sentence:"___ is my uncle.",options:["He","She","I","You"],answer:"He",img:"https://cdn-icons-png.flaticon.com/512/3233/3233483.png",label:"Uncle",arabic:"هو عمي."},
+ {sentence:"___ is my aunt.",options:["She","He","I","They"],answer:"She",img:"https://cdn-icons-png.flaticon.com/512/2922/2922566.png",label:"Aunt",arabic:"هي عمتي."},
+ {sentence:"___ are my brothers.",options:["We","They","He","I"],answer:"They",img:"https://cdn-icons-png.flaticon.com/512/681/681494.png",label:"Brothers",arabic:"هم إخوتي."},
+ {sentence:"___ are my sisters.",options:["They","We","She","I"],answer:"They",img:"https://cdn-icons-png.flaticon.com/512/681/681519.png",label:"Sisters",arabic:"هن أخواتي."},
+ {sentence:"___ are my friends.",options:["We","They","I","He"],answer:"We",img:"https://cdn-icons-png.flaticon.com/512/681/681443.png",label:"Friends",arabic:"نحن أصدقائي."}
+];
+
+let questions=[...allQuestions];
+let currentQuestion=0;
+let score=0;
+let timerInterval;
+
+const quiz=document.getElementById("quiz");
+const timerEl=document.getElementById("timer");
+const progress=document.getElementById("progressBar");
+
+function startTimer(sec){
+ let t=sec;
+ timerInterval=setInterval(()=>{
+   let m=String(Math.floor(t/60)).padStart(2,"0");
+   let s=String(t%60).padStart(2,"0");
+   timerEl.textContent=`${m}:${s}`;
+   if(--t<0){ clearInterval(timerInterval); showResult(); }
+ },1000);
+}
+
+function showQuestion(){
+ if(currentQuestion>=questions.length){ showResult(); return; }
+ const q=questions[currentQuestion];
+ document.getElementById("questionNumber").textContent=`${currentQuestion+1}/${questions.length}`;
+ progress.style.width=`${(currentQuestion/questions.length)*100}%`;
+ progress.textContent=`${Math.round((currentQuestion/questions.length)*100)}%`;
+
+ quiz.innerHTML=`
+ <div class="question">
+  <div class="question-text">${q.sentence.replace("___","<span class='blank'>_____</span>")}</div>
+  <div class="image-box">
+   <img src="${q.img}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1946/1946429.png'">
+   <div class="image-label">${q.label}</div>
+  </div>
+  <div class="options-grid">
+   ${q.options.map(o=>`<button onclick="checkAnswer(this,'${o}')">${o}</button>`).join("")}
+  </div>
+  <button class="listen-btn" onclick="speak('${q.sentence.replace('___',q.answer)}')">🔊 Listen</button>
+ </div>`;
+}
+
+function checkAnswer(btn,ans){
+ const q=questions[currentQuestion];
+ document.querySelectorAll("button").forEach(b=>b.disabled=true);
+ if(ans===q.answer){ btn.classList.add("correct"); score++; }
+ else{ btn.classList.add("wrong"); }
+ document.getElementById("currentScore").textContent=score;
+ setTimeout(()=>{ currentQuestion++; showQuestion(); },1200);
+}
+
+function speak(txt){
+ let u=new SpeechSynthesisUtterance(txt);
+ u.lang="en-US"; u.rate=0.8;
+ speechSynthesis.speak(u);
+}
+
+function showResult(){
+ clearInterval(timerInterval);
+ quiz.style.display="none";
+ document.getElementById("certificate").style.display="block";
+ document.getElementById("finalScore").textContent=`Score: ${score}/${questions.length}`;
+ document.getElementById("translationList").innerHTML=
+ allQuestions.map(q=>`<li>${q.sentence.replace("___",q.answer)} → ${q.arabic}</li>`).join("");
+}
+
+function restartQuiz(){
+ location.reload();
+}
+
+showQuestion();
+startTimer(25*60);
+</script>
+
+</body>
+</html>
