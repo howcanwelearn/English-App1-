@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 7 Pre-Test – Mega Goal 3</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-blue: #003366;
+  --primary-blue-light: #004d99;
+  --success-green: #2e7d32;
+  --success-green-light: #43a047;
+  --warning-orange: #ef6c00;
+  --error-red: #c62828;
+  --text-dark: #212121;
+  --text-light: #666666;
+  --bg-light: #f4f6f8;
+  --white: #ffffff;
+  --border-color: #e0e0e0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+header {
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+  color: var(--white);
+  padding: 30px;
+  text-align: center;
+}
+
+header .logo {
+  width: 80px;
+  height: 80px;
+  background: var(--white);
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+header h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+header .subtitle {
+  font-size: 15px;
+  opacity: 0.95;
+  line-height: 1.8;
+}
+
+.lang-toggle {
+  margin-top: 15px;
+  padding: 10px 24px;
+  background: var(--warning-orange);
+  border: none;
+  border-radius: 25px;
+  color: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.lang-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 108, 0, 0.4);
+}
+
+.student-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 20px;
+  background: linear-gradient(to bottom, #f8f9fa, var(--white));
+  border-bottom: 2px solid var(--border-color);
+}
+
+.info-card {
+  padding: 15px 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: var(--white);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-3px);
+}
+
+.info-card.name {
+  background: linear-gradient(135deg, var(--success-green), var(--success-green-light));
+}
+
+.info-card.email {
+  background: linear-gradient(135deg, #1565c0, #1976d2);
+}
+
+.info-card.grade {
+  background: linear-gradient(135deg, var(--warning-orange), #f57c00);
+}
+
+.info-card .label {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-bottom: 5px;
+}
+
+.info-card .value {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.timer-container {
+  text-align: center;
+  padding: 20px;
+  background: var(--white);
+}
+
+.timer {
+  display: inline-block;
+  padding: 15px 40px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+  color: var(--white);
+  font-size: 32px;
+  font-weight: 700;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
+  min-width: 180px;
+}
+
+.timer.warning {
+  background: linear-gradient(135deg, #f44336, var(--error-red));
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.quiz-content {
+  padding: 30px;
+  min-height: 400px;
+}
+
+.progress-container {
+  margin-bottom: 30px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--success-green), var(--success-green-light));
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: linear-gradient(to right, #f8f9fa, var(--white));
+  border-radius: 10px;
+  margin-bottom: 25px;
+  border-left: 4px solid var(--primary-blue);
+}
+
+.question-number {
+  font-weight: 700;
+  color: var(--primary-blue);
+  font-size: 15px;
+}
+
+.question-category {
+  padding: 6px 16px;
+  background: var(--primary-blue);
+  color: var(--white);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.question-text {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 30px;
+  line-height: 1.6;
+  padding: 0 10px;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.option {
+  padding: 18px 24px;
+  background: var(--white);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-dark);
+  position: relative;
+  text-align: left;
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background: var(--primary-blue);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.option:hover:not(:disabled) {
+  border-color: var(--primary-blue);
+  background: #e3f2fd;
+  transform: translateX(8px);
+}
+
+.option:hover:not(:disabled)::before {
+  transform: scaleY(1);
+}
+
+.option:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.option.correct {
+  background: linear-gradient(135deg, var(--success-green), var(--success-green-light));
+  color: var(--white);
+  border-color: var(--success-green);
+}
+
+.option.wrong {
+  background: linear-gradient(135deg, var(--error-red), #e53935);
+  color: var(--white);
+  border-color: var(--error-red);
+}
+
+.feedback {
+  margin-top: 20px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feedback.correct {
+  background: #e8f5e9;
+  color: var(--success-green);
+  border: 2px solid var(--success-green-light);
+}
+
+.feedback.incorrect {
+  background: #ffebee;
+  color: var(--error-red);
+  border: 2px solid #ef5350;
+}
+
+.feedback-text {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.results-container {
+  display: none;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.results-container.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.results-title {
+  font-size: 36px;
+  color: var(--success-green);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.hero-message {
+  font-size: 24px;
+  color: var(--primary-blue);
+  font-weight: 600;
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.score-display {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin: 20px 0;
+}
+
+.score-percentage {
+  font-size: 28px;
+  color: var(--text-light);
+  margin-bottom: 30px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 20px 50px;
+  font-size: 28px;
+  font-weight: 700;
+  border-radius: 50px;
+  margin: 20px 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.badge.gold {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #b8860b;
+}
+
+.badge.silver {
+  background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+  color: #696969;
+}
+
+.badge.bronze {
+  background: linear-gradient(135deg, #cd7f32, #e59866);
+  color: #654321;
+}
+
+.badge.practice {
+  background: linear-gradient(135deg, #90caf9, #64b5f6);
+  color: #0d47a1;
+}
+
+.category-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin: 40px 0;
+}
+
+.stat-card {
+  padding: 25px;
+  background: linear-gradient(to bottom, #f8f9fa, var(--white));
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .category-name {
+  font-weight: 700;
+  color: var(--primary-blue);
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.stat-card .category-score {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--success-green);
+  margin-bottom: 5px;
+}
+
+.stat-card .category-percentage {
+  font-size: 14px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.input-section {
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(to bottom, #f8f9fa, var(--white));
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  max-width: 600px;
+}
+
+.input-section h3 {
+  color: var(--primary-blue);
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+
+.error-message {
+  color: var(--error-red);
+  font-size: 13px;
+  margin-top: 5px;
+  display: none;
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 25px 0;
+}
+
+.btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  color: var(--white);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #1565c0, #1976d2);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--success-green), var(--success-green-light));
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, var(--warning-orange), #f57c00);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #555, #777);
+}
+
+.arabic-help {
+  margin-top: 40px;
+  padding: 25px;
+  background: #fff3e0;
+  border-radius: 12px;
+  border-right: 5px solid var(--warning-orange);
+  text-align: right;
+  direction: rtl;
+}
+
+.arabic-help h3 {
+  color: var(--warning-orange);
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.arabic-help ul {
+  list-style: none;
+}
+
+.arabic-help li {
+  padding: 12px 0;
+  border-bottom: 1px solid #ffe0b2;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.arabic-help li:last-child {
+  border-bottom: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.welcome-section {
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: 32px;
+  color: var(--primary-blue);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.welcome-text {
+  font-size: 18px;
+  color: var(--text-light);
+  margin-bottom: 30px;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 22px;
+  }
+
+  .timer {
+    font-size: 26px;
+    padding: 12px 30px;
+  }
+
+  .question-text {
+    font-size: 18px;
+  }
+
+  .option {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+
+  .score-display {
+    font-size: 48px;
+  }
+
+  .badge {
+    font-size: 22px;
+    padding: 15px 35px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="logo">📚</div>
+    <h1>Unit 7 Pre-Test – Mega Goal 3</h1>
+    <p class="subtitle">
+      Designed by Mr. Ahmed Amin<br>
+      Maali Creative High School – English Supervisor
+    </p>
+    <button class="lang-toggle" id="langToggle">
+      🌐 <span id="langText">عربي / English</span>
+    </button>
+  </header>
+
+  <div class="student-info">
+    <div class="info-card name">
+      <div class="label">👤 Student</div>
+      <div class="value" id="displayName">Not Set</div>
+    </div>
+    <div class="info-card email">
+      <div class="label">📧 Email</div>
+      <div class="value" id="displayEmail">Not Set</div>
+    </div>
+    <div class="info-card grade">
+      <div class="label">🎓 Grade</div>
+      <div class="value" id="displayGrade">Not Set</div>
+    </div>
+  </div>
+
+  <div class="timer-container hidden" id="timerContainer">
+    <div class="timer" id="timer">60:00</div>
+  </div>
+
+  <div class="welcome-section" id="welcomeSection">
+    <h1 class="welcome-title">👋 Welcome to the Test!</h1>
+    <p class="welcome-text">
+      Please enter your information before starting the test.<br>
+      You will have 60 minutes to complete all questions.
+    </p>
+
+    <div class="input-section">
+      <h3>📝 Student Information</h3>
+      <div class="input-group">
+        <label for="inputName">✍️ Full Name *</label>
+        <input type="text" id="inputName" placeholder="Enter your full name" maxlength="50">
+        <div class="error-message" id="nameError">Please enter your name</div>
+      </div>
+      <div class="input-group">
+        <label for="inputEmail">📧 Email Address *</label>
+        <input type="email" id="inputEmail" placeholder="Enter your email" maxlength="50">
+        <div class="error-message" id="emailError">Please enter a valid email</div>
+      </div>
+      <div class="input-group">
+        <label for="inputGrade">🎓 Grade / Class *</label>
+        <input type="text" id="inputGrade" placeholder="e.g., Grade 10 or 3rd Secondary" maxlength="30">
+        <div class="error-message" id="gradeError">Please enter your grade</div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-success" id="startBtn">🚀 Start Test</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-content hidden" id="quizContent">
+    <div class="progress-container">
+      <div class="progress-info">
+        <span id="progressText">Question 0 of 0</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+    <div id="questionContainer"></div>
+  </div>
+
+  <div class="results-container" id="resultsContainer">
+    <h1 class="results-title">🎉 Test Complete! 🎉</h1>
+    <div class="hero-message">
+      🌟 You are a Hero in Vocabulary, Reading, Idioms, and Grammar<br>
+      of Unit 7 – Mega Goal 3! 🌟
+    </div>
+    <div class="score-display" id="finalScore">0/0</div>
+    <div class="score-percentage" id="finalPercentage">0%</div>
+    <div class="badge" id="badge">🏆 Achievement Badge</div>
+
+    <div class="category-stats" id="categoryStats"></div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" id="emailBtn">📧 Email Results</button>
+      <button class="btn btn-success" id="printBtn">🖨️ Print Certificate</button>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-warning" id="retryBtn">🔄 Retry Wrong Answers</button>
+      <button class="btn btn-secondary" id="restartBtn">↻ Restart Test</button>
+    </div>
+
+    <div class="arabic-help">
+      <h3>📘 شرح القواعد المهمة</h3>
+      <ul>
+        <li><strong>may have / might have</strong> = للتعبير عن احتمال حدوث شيء في الماضي</li>
+        <li><strong>must have</strong> = للتعبير عن استنتاج قوي في الماضي</li>
+        <li><strong>should have</strong> = للتعبير عن اللوم أو الندم على عدم فعل شيء</li>
+        <li><strong>الأسماء غير المعدودة</strong> = لا تُجمع ولا تأخذ أداة a/an</li>
+        <li><strong>التعابير الاصطلاحية</strong> = لها معانٍ مجازية خاصة</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const quizApp = {
+    state: {
+      currentLanguage: 'en',
+      currentQuestionIndex: 0,
+      score: 0,
+      answers: [],
+      timeRemaining: 3600,
+      timerInterval: null,
+      studentInfo: {
+        name: '',
+        email: '',
+        grade: ''
+      },
+      categoryScores: {
+        Vocabulary: { correct: 0, total: 0 },
+        Grammar: { correct: 0, total: 0 },
+        Reading: { correct: 0, total: 0 },
+        Idioms: { correct: 0, total: 0 }
+      }
+    },
+
+    questions: [
+      {
+        question: "What is the meaning of 'Don't fear failure so much that you refuse to try new things'?",
+        options: [
+          "Avoid all risks to stay safe",
+          "Growth and success come from trying, failing, and learning",
+          "Never make mistakes in life",
+          "Only try things you're sure to succeed at"
+        ],
+        correct: 1,
+        category: "Vocabulary",
+        feedback: {
+          en: "The quote encourages taking risks and learning from failure.",
+          ar: "الاقتباس يشجع على المخاطرة والتعلم من الفشل"
+        }
+      },
+      {
+        question: "'Raise' means:",
+        options: ["Lower", "Boost", "Decrease", "Remove"],
+        correct: 1,
+        category: "Vocabulary",
+        feedback: {
+          en: "Raise means to boost or increase something.",
+          ar: "كلمة Raise تعني رفع أو زيادة شيء ما"
+        }
+      },
+      {
+        question: "'Put up with' means:",
+        options: ["Reject", "Endure", "Celebrate", "Ignore"],
+        correct: 1,
+        category: "Vocabulary",
+        feedback: {
+          en: "Put up with means to endure or tolerate something difficult.",
+          ar: "تعني تحمل أو الصبر على شيء صعب"
+        }
+      },
+      {
+        question: "'Flop' means:",
+        options: ["Success", "Failure", "Beginning", "Improvement"],
+        correct: 1,
+        category: "Vocabulary",
+        feedback: {
+          en: "A flop is a complete failure, especially of a product or show.",
+          ar: "Flop تعني فشل تام، خاصة لمنتج أو عرض"
+        }
+      },
+      {
+        question: "'Novelty' means:",
+        options: ["Something old", "A new thing", "Something broken", "Something expensive"],
+        correct: 1,
+        category: "Vocabulary",
+        feedback: {
+          en: "Novelty refers to something new or unusual.",
+          ar: "Novelty تشير إلى شيء جديد أو غير عادي"
+        }
+      },
+      {
+        question: "'Outraged' means:",
+        options: ["Calm", "Very angry", "Happy", "Confused"],
+        correct: 1,
+        category: "Vocabulary",
+        feedback: {
+          en: "Outraged means extremely angry or shocked.",
+          ar: "Outraged تعني غاضب جداً أو صادم"
+        }
+      },
+      {
+        question: "What was William Orton's mistake?",
+        options: [
+          "He invested too much money",
+          "He didn't realize the telephone would become the most valuable patent",
+          "He sold his company",
+          "He trusted the wrong people"
+        ],
+        correct: 1,
+        category: "Reading",
+        feedback: {
+          en: "William Orton failed to see the value of the telephone patent.",
+          ar: "ويليام أورتون فشل في رؤية قيمة براءة اختراع الهاتف"
+        }
+      },
+      {
+        question: "Why might the Titanic have avoided sinking?",
+        options: [
+          "If the radio operator had warned the captain about the iceberg",
+          "If it sailed faster",
+          "If it had more passengers",
+          "If the weather was better"
+        ],
+        correct: 0,
+        category: "Reading",
+        feedback: {
+          en: "A timely warning about the iceberg could have prevented the disaster.",
+          ar: "التحذير في الوقت المناسب عن الجبل الجليدي كان يمكن أن يمنع الكارثة"
+        }
+      },
+      {
+        question: "What do the Russians probably regret? Why?",
+        options: [
+          "Building too many ships",
+          "Selling Alaska to the US because Americans discovered gold there",
+          "Starting a war",
+          "Trading with Europe"
+        ],
+        correct: 1,
+        category: "Reading",
+        feedback: {
+          en: "Russia regretted selling Alaska after gold was discovered.",
+          ar: "روسيا ندمت على بيع ألاسكا بعد اكتشاف الذهب"
+        }
+      },
+      {
+        question: "How did Coca-Cola 'mess with success'?",
+        options: [
+          "They stopped advertising",
+          "They raised prices too high",
+          "They tried to change the formula of their most popular drink",
+          "They closed their factories"
+        ],
+        correct: 2,
+        category: "Reading",
+        feedback: {
+          en: "Coca-Cola changed the formula of their successful drink, which was a mistake.",
+          ar: "غيرت كوكاكولا صيغة مشروبها الناجح، وهو ما كان خطأ"
+        }
+      },
+      {
+        question: "I have a sore throat. I ___ caught your cold.",
+        options: ["should have", "may have", "must", "will have"],
+        correct: 1,
+        category: "Grammar",
+        feedback: {
+          en: "Use 'may have' to express possibility in the past.",
+          ar: "استخدم may have للتعبير عن احتمال في الماضي"
+        }
+      },
+      {
+        question: "He ___ know about the business deal, but he found out by accident.",
+        options: ["wasn't supposed to", "should have", "must have", "may"],
+        correct: 0,
+        category: "Grammar",
+        feedback: {
+          en: "'Wasn't supposed to' expresses that something was not expected or allowed.",
+          ar: "wasn't supposed to تعبر عن شيء لم يكن متوقعاً أو مسموحاً"
+        }
+      },
+      {
+        question: "You have a big smile in all the vacation pictures. You ___ had a great time.",
+        options: ["should have", "must have", "may have", "can"],
+        correct: 1,
+        category: "Grammar",
+        feedback: {
+          en: "Use 'must have' for strong deduction about the past.",
+          ar: "استخدم must have للاستنتاج القوي عن الماضي"
+        }
+      },
+      {
+    "question": "'Outraged' means:",
+    "options": [
+      "Calm",
+      "Very angry",
+      "Happy",
+      "Confused"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Outraged means extremely angry or shocked.",
+      "ar": "Outraged تعني غاضب جداً أو صادم"
+    }
+  },
+  {
+    "question": "'Raise' means:",
+    "options": [
+      "Lower",
+      "Boost",
+      "Decrease",
+      "Remove"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Raise means to boost or increase something.",
+      "ar": "كلمة Raise تعني رفع أو زيادة شيء ما"
+    }
+  },
+  {
+    "question": "'Put up with' means:",
+    "options": [
+      "Reject",
+      "Endure",
+      "Celebrate",
+      "Ignore"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Put up with means to endure or tolerate something difficult.",
+      "ar": "تعني تحمل أو الصبر على شيء صعب"
+    }
+  },
+  {
+    "question": "'Flop' means:",
+    "options": [
+      "Success",
+      "Failure",
+      "Beginning",
+      "Improvement"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "A flop is a complete failure, especially of a product or show.",
+      "ar": "Flop تعني فشل تام، خاصة لمنتج أو عرض"
+    }
+  },
+  {
+    "question": "'Novelty' means:",
+    "options": [
+      "Something old",
+      "A new thing",
+      "Something broken",
+      "Something expensive"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Novelty refers to something new or unusual.",
+      "ar": "Novelty تشير إلى شيء جديد أو غير عادي"
+    }
+  },
+  {
+    "question": "'Regret' means:",
+    "options": [
+      "To feel happy",
+      "To feel sorry about something",
+      "To celebrate",
+      "To ignore"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Regret means to feel sorry or sad about something you did or didn't do.",
+      "ar": "Regret تعني الشعور بالندم على شيء فعلته أو لم تفعله"
+    }
+  },
+  {
+    "question": "'Dismiss' means:",
+    "options": [
+      "To accept",
+      "To reject or send away",
+      "To welcome",
+      "To celebrate"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Dismiss means to reject an idea or send someone away.",
+      "ar": "Dismiss تعني رفض فكرة أو صرف شخص"
+    }
+  },
+  {
+    "question": "'Patent' means:",
+    "options": [
+      "A type of medicine",
+      "An official right to an invention",
+      "A disease",
+      "A building"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "A patent is an official document giving someone the right to make or sell an invention.",
+      "ar": "Patent هي وثيقة رسمية تمنح شخصاً الحق في صنع أو بيع اختراع"
+    }
+  },
+  {
+    "question": "'Mess with' means:",
+    "options": [
+      "To clean",
+      "To interfere or tamper with",
+      "To organize",
+      "To improve"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Mess with means to interfere with or change something, often making it worse.",
+      "ar": "Mess with تعني التدخل في شيء أو تغييره، غالباً للأسوأ"
+    }
+  },
+  {
+    "question": "'Warn' means:",
+    "options": [
+      "To praise",
+      "To inform about danger",
+      "To reward",
+      "To punish"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Warn means to inform someone about a possible danger or problem.",
+      "ar": "Warn تعني إخبار شخص عن خطر أو مشكلة محتملة"
+    }
+  },
+  {
+    "question": "'Realize' means:",
+    "options": [
+      "To forget",
+      "To become aware of",
+      "To ignore",
+      "To celebrate"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Realize means to become aware of or understand something.",
+      "ar": "Realize تعني أن تصبح واعياً لشيء أو تفهمه"
+    }
+  },
+  {
+    "question": "'Valuable' means:",
+    "options": [
+      "Worthless",
+      "Worth a lot of money or very useful",
+      "Cheap",
+      "Old"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Valuable means worth a lot of money or very important and useful.",
+      "ar": "Valuable تعني ذو قيمة كبيرة أو مفيد جداً"
+    }
+  },
+  {
+    "question": "'Discover' means:",
+    "options": [
+      "To lose",
+      "To find or learn something for the first time",
+      "To hide",
+      "To forget"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Discover means to find or learn about something for the first time.",
+      "ar": "Discover تعني إيجاد أو تعلم شيء لأول مرة"
+    }
+  },
+  {
+    "question": "'Formula' means:",
+    "options": [
+      "A building",
+      "A recipe or set of instructions",
+      "A person",
+      "A place"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Formula means a recipe, method, or set of instructions for making something.",
+      "ar": "Formula تعني وصفة أو طريقة أو مجموعة تعليمات لصنع شيء"
+    }
+  },
+  {
+    "question": "'Iceberg' means:",
+    "options": [
+      "A ship",
+      "A large piece of ice floating in the sea",
+      "A mountain",
+      "A building"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "An iceberg is a very large piece of ice floating in the ocean.",
+      "ar": "Iceberg هو قطعة كبيرة جداً من الجليد تطفو في المحيط"
+    }
+  },
+  {
+    "question": "'Avoid' means:",
+    "options": [
+      "To seek",
+      "To stay away from or prevent",
+      "To welcome",
+      "To find"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Avoid means to stay away from or prevent something from happening.",
+      "ar": "Avoid تعني الابتعاد عن شيء أو منع حدوثه"
+    }
+  },
+  {
+    "question": "'Sink' means:",
+    "options": [
+      "To float",
+      "To go down below the surface",
+      "To fly",
+      "To jump"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Sink means to go down below the surface of water.",
+      "ar": "Sink تعني الغرق أو النزول تحت سطح الماء"
+    }
+  },
+  {
+    "question": "'Operator' means:",
+    "options": [
+      "A machine",
+      "A person who operates equipment",
+      "A building",
+      "A tool"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "An operator is a person who operates or controls equipment or machinery.",
+      "ar": "Operator هو شخص يشغل أو يتحكم في معدات أو آلات"
+    }
+  },
+  {
+    "question": "'Success' means:",
+    "options": [
+      "Failure",
+      "Achievement of goals",
+      "Beginning",
+      "Ending"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Success means achieving what you wanted or planned to do.",
+      "ar": "Success تعني تحقيق ما أردت أو خططت للقيام به"
+    }
+  },
+  {
+    "question": "'Investment' means:",
+    "options": [
+      "Spending money",
+      "Money put into something to make profit",
+      "Borrowing money",
+      "Losing money"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Investment means money put into a business or project to make a profit.",
+      "ar": "Investment تعني المال الذي يوضع في عمل أو مشروع لتحقيق ربح"
+    }
+  },
+  {
+    "question": "'Mistake' means:",
+    "options": [
+      "Correct action",
+      "An error or wrong action",
+      "Success",
+      "Achievement"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "A mistake is something done incorrectly or an error in judgment.",
+      "ar": "Mistake هو شيء تم بشكل غير صحيح أو خطأ في الحكم"
+    }
+  },
+  {
+    "question": "'Timely' means:",
+    "options": [
+      "Late",
+      "Done at the right time",
+      "Never",
+      "Always"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Timely means done or happening at the right or appropriate time.",
+      "ar": "Timely تعني القيام بشيء في الوقت المناسب"
+    }
+  },
+  {
+    "question": "'Prevent' means:",
+    "options": [
+      "To cause",
+      "To stop something from happening",
+      "To encourage",
+      "To start"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Prevent means to stop something from happening or being done.",
+      "ar": "Prevent تعني منع حدوث شيء أو القيام به"
+    }
+  },
+  {
+    "question": "'Disaster' means:",
+    "options": [
+      "Success",
+      "A terrible event causing damage",
+      "Celebration",
+      "Achievement"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "A disaster is a sudden terrible event that causes great damage or loss.",
+      "ar": "Disaster هو حدث مروع مفاجئ يسبب ضرراً أو خسارة كبيرة"
+    }
+  },
+  {
+    "question": "'Popular' means:",
+    "options": [
+      "Hated",
+      "Liked by many people",
+      "Unknown",
+      "Rare"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Popular means liked, enjoyed, or supported by many people.",
+      "ar": "Popular تعني محبوب أو مدعوم من قبل الكثير من الناس"
+    }
+  },
+  {
+    "question": "I have a sore throat. I ___ caught your cold.",
+    "options": [
+      "should have",
+      "may have",
+      "must",
+      "will have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "Use 'may have' to express possibility in the past.",
+      "ar": "استخدم may have للتعبير عن احتمال في الماضي"
+    }
+  },
+  {
+    "question": "He ___ know about the business deal, but he found out by accident.",
+    "options": [
+      "wasn't supposed to",
+      "should have",
+      "must have",
+      "may"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Wasn't supposed to' expresses that something was not expected or allowed.",
+      "ar": "wasn't supposed to تعبر عن شيء لم يكن متوقعاً أو مسموحاً"
+    }
+  },
+  {
+    "question": "You have a big smile in all the vacation pictures. You ___ had a great time.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "can"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "Use 'must have' for strong deduction about the past.",
+      "ar": "استخدم must have للاستنتاج القوي عن الماضي"
+    }
+  },
+  {
+    "question": "She ___ studied harder for the exam. She failed.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "can have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' expresses regret about something not done in the past.",
+      "ar": "should have تعبر عن الندم على شيء لم يُفعل في الماضي"
+    }
+  },
+  {
+    "question": "They ___ left early. The door was unlocked when I arrived.",
+    "options": [
+      "should have",
+      "may have",
+      "must have",
+      "can have"
+    ],
+    "correct": 2,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' shows a strong conclusion based on evidence.",
+      "ar": "must have تظهر استنتاجاً قوياً بناءً على دليل"
+    }
+  },
+  {
+    "question": "I ___ eaten so much cake. Now I feel sick.",
+    "options": [
+      "shouldn't have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Shouldn't have' expresses regret about doing something.",
+      "ar": "shouldn't have تعبر عن الندم على فعل شيء"
+    }
+  },
+  {
+    "question": "The keys ___ fallen out of my pocket.",
+    "options": [
+      "should have",
+      "might have",
+      "must",
+      "will have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Might have' expresses possibility about past events.",
+      "ar": "might have تعبر عن احتمال حول أحداث الماضي"
+    }
+  },
+  {
+    "question": "You ___ called me before coming. I wasn't home.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "can have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' indicates something was advisable but wasn't done.",
+      "ar": "should have تشير إلى شيء كان يُنصح به لكن لم يُفعل"
+    }
+  },
+  {
+    "question": "He ___ been very tired. He fell asleep immediately.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' shows certainty about a past situation.",
+      "ar": "must have تظهر التأكد من موقف في الماضي"
+    }
+  },
+  {
+    "question": "They ___ taken the wrong bus. They arrived late.",
+    "options": [
+      "should have",
+      "might have",
+      "will have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Might have' suggests a possible explanation for what happened.",
+      "ar": "might have تقترح تفسيراً محتملاً لما حدث"
+    }
+  },
+  {
+    "question": "I ___ brought an umbrella. It's raining now.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' expresses regret about not doing something.",
+      "ar": "should have تعبر عن الندم على عدم فعل شيء"
+    }
+  },
+  {
+    "question": "She ___ forgotten about the meeting. She didn't show up.",
+    "options": [
+      "should have",
+      "must have",
+      "will have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' indicates a logical conclusion based on facts.",
+      "ar": "must have تشير إلى استنتاج منطقي بناءً على الحقائق"
+    }
+  },
+  {
+    "question": "We ___ saved more money for the trip.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' shows regret about insufficient past action.",
+      "ar": "should have تظهر الندم على عمل سابق غير كافٍ"
+    }
+  },
+  {
+    "question": "He ___ lost his wallet. He's checking all his pockets.",
+    "options": [
+      "should have",
+      "might have",
+      "will have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Might have' expresses uncertainty about what happened.",
+      "ar": "might have تعبر عن عدم اليقين حول ما حدث"
+    }
+  },
+  {
+    "question": "You ___ been more careful with that glass vase.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' criticizes a past action or lack of care.",
+      "ar": "should have تنتقد عملاً سابقاً أو نقص الحذر"
+    }
+  },
+  {
+    "question": "They ___ won the lottery. They bought a huge mansion.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' shows strong certainty based on evidence.",
+      "ar": "must have تظهر يقيناً قوياً بناءً على دليل"
+    }
+  },
+  {
+    "question": "'Break the ice' means:",
+    "options": [
+      "To break something",
+      "To make people feel comfortable",
+      "To be cold",
+      "To freeze water"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Break the ice means to make people feel more relaxed in a social situation.",
+      "ar": "Break the ice تعني جعل الناس يشعرون بالراحة في موقف اجتماعي"
+    }
+  },
+  {
+    "question": "'Piece of cake' means:",
+    "options": [
+      "Delicious food",
+      "Very easy",
+      "Very difficult",
+      "A dessert"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Piece of cake means something is very easy to do.",
+      "ar": "Piece of cake تعني أن شيئاً سهل جداً للقيام به"
+    }
+  },
+  {
+    "question": "'Cost an arm and a leg' means:",
+    "options": [
+      "To be injured",
+      "To be very expensive",
+      "To be cheap",
+      "To be free"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Cost an arm and a leg means something is very expensive.",
+      "ar": "Cost an arm and a leg تعني أن شيئاً مكلف جداً"
+    }
+  },
+  {
+    "question": "'Hit the nail on the head' means:",
+    "options": [
+      "To make a mistake",
+      "To be exactly right",
+      "To be wrong",
+      "To build something"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Hit the nail on the head means to be exactly correct about something.",
+      "ar": "Hit the nail on the head تعني أن تكون على صواب تماماً"
+    }
+  },
+  {
+    "question": "'Let the cat out of the bag' means:",
+    "options": [
+      "To free an animal",
+      "To reveal a secret",
+      "To hide something",
+      "To buy a pet"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Let the cat out of the bag means to accidentally reveal a secret.",
+      "ar": "Let the cat out of the bag تعني كشف سر بالخطأ"
+    }
+  },
+  {
+    "question": "'Once in a blue moon' means:",
+    "options": [
+      "Every day",
+      "Very rarely",
+      "Every month",
+      "Never"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Once in a blue moon means something happens very rarely.",
+      "ar": "Once in a blue moon تعني أن شيئاً يحدث نادراً جداً"
+    }
+  },
+  {
+    "question": "'Under the weather' means:",
+    "options": [
+      "Outside",
+      "Feeling sick",
+      "Feeling happy",
+      "Raining"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Under the weather means feeling ill or sick.",
+      "ar": "Under the weather تعني الشعور بالمرض"
+    }
+  },
+  {
+    "question": "'Spill the beans' means:",
+    "options": [
+      "To cook",
+      "To reveal information",
+      "To make a mess",
+      "To eat"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Spill the beans means to tell someone a secret or reveal information.",
+      "ar": "Spill the beans تعني إخبار شخص بسر أو كشف معلومات"
+    }
+  },
+  {
+    "question": "'The ball is in your court' means:",
+    "options": [
+      "Play sports",
+      "It's your decision or responsibility",
+      "Go outside",
+      "Buy a ball"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "The ball is in your court means it's your turn to take action or make a decision.",
+      "ar": "The ball is in your court تعني أن دورك في اتخاذ إجراء أو قرار"
+    }
+  },
+  {
+    "question": "'Bite off more than you can chew' means:",
+    "options": [
+      "To eat too much",
+      "To take on more than you can handle",
+      "To be hungry",
+      "To cook well"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Bite off more than you can chew means to try to do more than you are able to.",
+      "ar": "Bite off more than you can chew تعني محاولة القيام بأكثر مما تستطيع"
+    }
+  },
+  {
+    "question": "'Cry over spilled milk' means:",
+    "options": [
+      "To be sad about milk",
+      "To complain about something that can't be changed",
+      "To clean up",
+      "To drink milk"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Cry over spilled milk means to be upset about something that cannot be changed.",
+      "ar": "Cry over spilled milk تعني الانزعاج من شيء لا يمكن تغييره"
+    }
+  },
+  {
+    "question": "'A blessing in disguise' means:",
+    "options": [
+      "A costume",
+      "Something good that seemed bad at first",
+      "A curse",
+      "A surprise"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "A blessing in disguise means something that seems bad but turns out to be good.",
+      "ar": "A blessing in disguise تعني شيء يبدو سيئاً لكنه يتحول إلى خير"
+    }
+  },
+  {
+    "question": "'Get cold feet' means:",
+    "options": [
+      "To be cold",
+      "To become nervous or afraid",
+      "To walk outside",
+      "To wear shoes"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Get cold feet means to become too frightened to do something you planned.",
+      "ar": "Get cold feet تعني أن تصبح خائفاً جداً من فعل شيء خططت له"
+    }
+  },
+  {
+    "question": "'Kill two birds with one stone' means:",
+    "options": [
+      "To hunt",
+      "To accomplish two things at once",
+      "To be cruel",
+      "To throw stones"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Kill two birds with one stone means to achieve two goals with one action.",
+      "ar": "Kill two birds with one stone تعني تحقيق هدفين بفعل واحد"
+    }
+  },
+  {
+    "question": "'Beat around the bush' means:",
+    "options": [
+      "To fight",
+      "To avoid talking directly about something",
+      "To garden",
+      "To run"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Beat around the bush means to avoid talking about the main point.",
+      "ar": "Beat around the bush تعني تجنب الحديث عن الموضوع الرئيسي"
+    }
+  },
+  {
+    "question": "What was William Orton's mistake?",
+    "options": [
+      "He invested too much money",
+      "He didn't realize the telephone would become the most valuable patent",
+      "He sold his company",
+      "He trusted the wrong people"
+    ],
+    "correct": 1,
+    "category": "Reading",
+    "feedback": {
+      "en": "William Orton failed to see the value of the telephone patent.",
+      "ar": "ويليام أورتون فشل في رؤية قيمة براءة اختراع الهاتف"
+    }
+  },
+  {
+    "question": "Why might the Titanic have avoided sinking?",
+    "options": [
+      "If the radio operator had warned the captain about the iceberg",
+      "If it sailed faster",
+      "If it had more passengers",
+      "If the weather was better"
+    ],
+    "correct": 0,
+    "category": "Reading",
+    "feedback": {
+      "en": "A timely warning about the iceberg could have prevented the disaster.",
+      "ar": "التحذير في الوقت المناسب عن الجبل الجليدي كان يمكن أن يمنع الكارثة"
+    }
+  },
+  {
+    "question": "What do the Russians probably regret? Why?",
+    "options": [
+      "Building too many ships",
+      "Selling Alaska to the US because Americans discovered gold there",
+      "Starting a war",
+      "Trading with Europe"
+    ],
+    "correct": 1,
+    "category": "Reading",
+    "feedback": {
+      "en": "Russia regretted selling Alaska after gold was discovered.",
+      "ar": "روسيا ندمت على بيع ألاسكا بعد اكتشاف الذهب"
+    }
+  },
+  {
+    "question": "How did Coca-Cola 'mess with success'?",
+    "options": [
+      "They stopped advertising",
+      "They raised prices too high",
+      "They tried to change the formula of their most popular drink",
+      "They closed their factories"
+    ],
+    "correct": 2,
+    "category": "Reading",
+    "feedback": {
+      "en": "Coca-Cola changed the formula of their successful drink, which was a mistake.",
+      "ar": "غيرت كوكاكولا صيغة مشروبها الناجح، وهو ما كان خطأ"
+    }
+  },
+  {
+    "question": "According to the reading, what is the main lesson about mistakes?",
+    "options": [
+      "Never make mistakes",
+      "Learn from mistakes and failures",
+      "Avoid all risks",
+      "Blame others for mistakes"
+    ],
+    "correct": 1,
+    "category": "Reading",
+    "feedback": {
+      "en": "The reading emphasizes learning from failures and mistakes.",
+      "ar": "القراءة تؤكد على التعلم من الإخفاقات والأخطاء"
+    }
+  },
+  {
+    "question": "'Turn down' means:",
+    "options": [
+      "To accept",
+      "To reject or refuse",
+      "To increase",
+      "To celebrate"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Turn down means to reject or refuse an offer or request.",
+      "ar": "Turn down تعني رفض عرض أو طلب"
+    }
+  },
+  {
+    "question": "'Come across' means:",
+    "options": [
+      "To lose",
+      "To find by chance",
+      "To search for",
+      "To hide"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Come across means to find or meet someone or something by chance.",
+      "ar": "Come across تعني إيجاد أو مقابلة شخص أو شيء بالصدفة"
+    }
+  },
+  {
+    "question": "'Give up' means:",
+    "options": [
+      "To start",
+      "To stop trying or surrender",
+      "To continue",
+      "To improve"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Give up means to stop trying to do something or to surrender.",
+      "ar": "Give up تعني التوقف عن محاولة فعل شيء أو الاستسلام"
+    }
+  },
+  {
+    "question": "'Look forward to' means:",
+    "options": [
+      "To remember",
+      "To anticipate with pleasure",
+      "To regret",
+      "To forget"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Look forward to means to feel excited about something that will happen.",
+      "ar": "Look forward to تعني الشعور بالحماس تجاه شيء سيحدث"
+    }
+  },
+  {
+    "question": "'Run out of' means:",
+    "options": [
+      "To find more",
+      "To have no more left",
+      "To buy",
+      "To save"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Run out of means to use all of something so there is none left.",
+      "ar": "Run out of تعني استخدام كل شيء حتى لا يتبقى شيء"
+    }
+  },
+  {
+    "question": "'Figure out' means:",
+    "options": [
+      "To confuse",
+      "To understand or solve",
+      "To ignore",
+      "To forget"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Figure out means to understand or find the solution to something.",
+      "ar": "Figure out تعني فهم أو إيجاد حل لشيء ما"
+    }
+  },
+  {
+    "question": "'Carry out' means:",
+    "options": [
+      "To cancel",
+      "To perform or complete a task",
+      "To start",
+      "To delay"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Carry out means to perform or complete a task or plan.",
+      "ar": "Carry out تعني تنفيذ أو إكمال مهمة أو خطة"
+    }
+  },
+  {
+    "question": "'Point out' means:",
+    "options": [
+      "To hide",
+      "To draw attention to something",
+      "To ignore",
+      "To forget"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Point out means to direct attention to something or mention it.",
+      "ar": "Point out تعني توجيه الانتباه إلى شيء أو ذكره"
+    }
+  },
+  {
+    "question": "'Take after' means:",
+    "options": [
+      "To dislike",
+      "To resemble a family member",
+      "To adopt",
+      "To ignore"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Take after means to resemble a parent or family member in appearance or character.",
+      "ar": "Take after تعني الشبه بأحد الوالدين أو أفراد العائلة في المظهر أو الطباع"
+    }
+  },
+  {
+    "question": "'Get along with' means:",
+    "options": [
+      "To fight with",
+      "To have a good relationship with",
+      "To avoid",
+      "To dislike"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Get along with means to have a friendly relationship with someone.",
+      "ar": "Get along with تعني أن يكون لديك علاقة ودية مع شخص ما"
+    }
+  },
+  {
+    "question": "'Bring up' means:",
+    "options": [
+      "To lower",
+      "To raise or mention a topic",
+      "To forget",
+      "To hide"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Bring up means to mention or start discussing a topic.",
+      "ar": "Bring up تعني ذكر أو البدء في مناقشة موضوع"
+    }
+  },
+  {
+    "question": "'Show up' means:",
+    "options": [
+      "To disappear",
+      "To arrive or appear",
+      "To leave",
+      "To hide"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Show up means to arrive or appear at a place.",
+      "ar": "Show up تعني الوصول أو الظهور في مكان"
+    }
+  },
+  {
+    "question": "She ___ been studying all night. She looks exhausted.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' expresses a strong logical conclusion based on evidence.",
+      "ar": "must have تعبر عن استنتاج منطقي قوي بناءً على دليل"
+    }
+  },
+  {
+    "question": "We ___ booked our tickets earlier. Now they're sold out.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' expresses regret about not doing something in the past.",
+      "ar": "should have تعبر عن الندم على عدم فعل شيء في الماضي"
+    }
+  },
+  {
+    "question": "He ___ missed the train. He's not answering his phone.",
+    "options": [
+      "should have",
+      "might have",
+      "will have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Might have' suggests a possible explanation for the situation.",
+      "ar": "might have تقترح تفسيراً محتملاً للموقف"
+    }
+  },
+  {
+    "question": "You ___ told me earlier. I could have helped you.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' indicates something was advisable but wasn't done.",
+      "ar": "should have تشير إلى شيء كان يُنصح به لكن لم يُفعل"
+    }
+  },
+  {
+    "question": "They ___ left before the storm started. Their car is gone.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' shows certainty based on the evidence (car is gone).",
+      "ar": "must have تظهر اليقين بناءً على الدليل (السيارة ذهبت)"
+    }
+  },
+  {
+    "question": "I ___ bought that expensive watch. I can't afford it.",
+    "options": [
+      "shouldn't have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Shouldn't have' expresses regret about doing something.",
+      "ar": "shouldn't have تعبر عن الندم على فعل شيء"
+    }
+  },
+  {
+    "question": "She ___ heard the news. She seems very happy.",
+    "options": [
+      "should have",
+      "must have",
+      "will have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' indicates a logical deduction from her happy appearance.",
+      "ar": "must have تشير إلى استنتاج منطقي من مظهرها السعيد"
+    }
+  },
+  {
+    "question": "We ___ taken a taxi. Walking was too far.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' shows regret about the choice not to take a taxi.",
+      "ar": "should have تظهر الندم على اختيار عدم أخذ سيارة أجرة"
+    }
+  },
+  {
+    "question": "He ___ forgotten his keys again. He's waiting outside.",
+    "options": [
+      "should have",
+      "must have",
+      "will have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' shows a certain conclusion from the evidence.",
+      "ar": "must have تظهر استنتاجاً مؤكداً من الدليل"
+    }
+  },
+  {
+    "question": "You ___ listened to my advice. Now look at the mess!",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' expresses criticism about not following advice.",
+      "ar": "should have تعبر عن النقد لعدم اتباع النصيحة"
+    }
+  },
+  {
+    "question": "They ___ gone to the beach. Their skin is sunburned.",
+    "options": [
+      "should have",
+      "must have",
+      "will have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' indicates certainty based on physical evidence.",
+      "ar": "must have تشير إلى اليقين بناءً على دليل مادي"
+    }
+  },
+  {
+    "question": "I ___ checked the weather forecast. I got caught in the rain.",
+    "options": [
+      "should have",
+      "must have",
+      "may have",
+      "will have"
+    ],
+    "correct": 0,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Should have' expresses regret about not checking the forecast.",
+      "ar": "should have تعبر عن الندم على عدم التحقق من توقعات الطقس"
+    }
+  },
+  {
+    "question": "She ___ received my message. She replied immediately.",
+    "options": [
+      "should have",
+      "must have",
+      "will have",
+      "can have"
+    ],
+    "correct": 1,
+    "category": "Grammar",
+    "feedback": {
+      "en": "'Must have' shows certainty because of the quick reply.",
+      "ar": "must have تظهر اليقين بسبب الرد السريع"
+    }
+  },
+  {
+    "question": "'On cloud nine' means:",
+    "options": [
+      "To be sad",
+      "To be extremely happy",
+      "To be confused",
+      "To be angry"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "On cloud nine means to be extremely happy or joyful.",
+      "ar": "On cloud nine تعني أن تكون سعيداً جداً أو مبتهجاً"
+    }
+  },
+  {
+    "question": "'The last straw' means:",
+    "options": [
+      "The beginning",
+      "The final problem that makes you upset",
+      "A celebration",
+      "A reward"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "The last straw means the final problem that makes a situation unbearable.",
+      "ar": "The last straw تعني المشكلة الأخيرة التي تجعل الموقف لا يطاق"
+    }
+  },
+  {
+    "question": "'Pull someone's leg' means:",
+    "options": [
+      "To hurt someone",
+      "To joke or tease someone",
+      "To help someone",
+      "To race with someone"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Pull someone's leg means to tease or joke with someone playfully.",
+      "ar": "Pull someone's leg تعني المزاح أو مداعبة شخص بشكل مرح"
+    }
+  },
+  {
+    "question": "'In hot water' means:",
+    "options": [
+      "Taking a bath",
+      "In trouble",
+      "Swimming",
+      "Cooking"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "In hot water means to be in trouble or in a difficult situation.",
+      "ar": "In hot water تعني أن تكون في مشكلة أو في موقف صعب"
+    }
+  },
+  {
+    "question": "'Speak of the devil' means:",
+    "options": [
+      "To be evil",
+      "When someone appears just as you mention them",
+      "To gossip",
+      "To be scared"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Speak of the devil means the person you were talking about just appeared.",
+      "ar": "Speak of the devil تعني أن الشخص الذي كنت تتحدث عنه ظهر للتو"
+    }
+  },
+  {
+    "question": "'Add insult to injury' means:",
+    "options": [
+      "To apologize",
+      "To make a bad situation worse",
+      "To help",
+      "To celebrate"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Add insult to injury means to make a bad situation even worse.",
+      "ar": "Add insult to injury تعني جعل موقف سيء أسوأ"
+    }
+  },
+  {
+    "question": "'Cut corners' means:",
+    "options": [
+      "To be perfect",
+      "To do something poorly to save time or money",
+      "To drive carefully",
+      "To be creative"
+    ],
+    "correct": 1,
+    "category": "Idioms",
+    "feedback": {
+      "en": "Cut corners means to do something in a cheap or easy way, often poorly.",
+      "ar": "Cut corners تعني القيام بشيء بطريقة رخيصة أو سهلة، غالباً بشكل سيء"
+    }
+  },
+  {
+    "question": "According to the unit theme, what should we learn from failure?",
+    "options": [
+      "To give up trying",
+      "To use it as a learning opportunity",
+      "To blame others",
+      "To avoid all challenges"
+    ],
+    "correct": 1,
+    "category": "Reading",
+    "feedback": {
+      "en": "Failure should be viewed as a learning opportunity for growth.",
+      "ar": "يجب النظر إلى الفشل كفرصة للتعلم والنمو"
+    }
+  },
+  {
+    "question": "Why is it important not to 'mess with success'?",
+    "options": [
+      "Because change is always bad",
+      "Because if something works well, changing it might ruin it",
+      "Because people hate change",
+      "Because success is impossible"
+    ],
+    "correct": 1,
+    "category": "Reading",
+    "feedback": {
+      "en": "Changing something successful unnecessarily can lead to failure.",
+      "ar": "تغيير شيء ناجح دون ضرورة يمكن أن يؤدي إلى الفشل"
+    }
+  },
+  {
+    "question": "What does the Titanic story teach us?",
+    "options": [
+      "Ships are dangerous",
+      "The importance of heeding warnings and being prepared",
+      "Ice is dangerous",
+      "Never travel by ship"
+    ],
+    "correct": 1,
+    "category": "Reading",
+    "feedback": {
+      "en": "The Titanic disaster shows the importance of listening to warnings.",
+      "ar": "كارثة التايتانك تظهر أهمية الاستماع إلى التحذيرات"
+    }
+  },
+  {
+    "question": "'Hindsight' refers to:",
+    "options": [
+      "Future vision",
+      "Understanding something after it has happened",
+      "Being blind",
+      "Predicting the future"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Hindsight means understanding a situation only after it has happened.",
+      "ar": "Hindsight تعني فهم موقف فقط بعد حدوثه"
+    }
+  },
+  {
+    "question": "'Opportunity' means:",
+    "options": [
+      "A problem",
+      "A chance to do something",
+      "A mistake",
+      "An ending"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Opportunity means a favorable chance or occasion to do something.",
+      "ar": "Opportunity تعني فرصة مواتية أو مناسبة للقيام بشيء"
+    }
+  },
+  {
+    "question": "'Wisdom' means:",
+    "options": [
+      "Ignorance",
+      "Good judgment based on knowledge and experience",
+      "Youth",
+      "Foolishness"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Wisdom means having good judgment and knowledge from experience.",
+      "ar": "Wisdom تعني امتلاك حكم جيد ومعرفة من الخبرة"
+    }
+  },
+  {
+    "question": "'Consequence' means:",
+    "options": [
+      "A beginning",
+      "A result or effect of an action",
+      "A reward",
+      "A celebration"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Consequence means the result or effect of an action or decision.",
+      "ar": "Consequence تعني النتيجة أو الأثر لفعل أو قرار"
+    }
+  },
+  {
+    "question": "'Risk' means:",
+    "options": [
+      "Safety",
+      "The possibility of danger or loss",
+      "Certainty",
+      "Success"
+    ],
+    "correct": 1,
+    "category": "Vocabulary",
+    "feedback": {
+      "en": "Risk means the possibility that something bad or dangerous might happen.",
+      "ar": "Risk تعني احتمال حدوث شيء سيء أو خطير"
+    }
+  }
+    ],
+
+    init() {
+      this.cacheDOMElements();
+      this.bindEvents();
+      this.updateProgress();
+    },
+
+    cacheDOMElements() {
+      this.elements = {
+        langToggle: document.getElementById('langToggle'),
+        startBtn: document.getElementById('startBtn'),
+        inputName: document.getElementById('inputName'),
+        inputEmail: document.getElementById('inputEmail'),
+        inputGrade: document.getElementById('inputGrade'),
+        displayName: document.getElementById('displayName'),
+        displayEmail: document.getElementById('displayEmail'),
+        displayGrade: document.getElementById('displayGrade'),
+        welcomeSection: document.getElementById('welcomeSection'),
+        quizContent: document.getElementById('quizContent'),
+        resultsContainer: document.getElementById('resultsContainer'),
+        timerContainer: document.getElementById('timerContainer'),
+        timer: document.getElementById('timer'),
+        questionContainer: document.getElementById('questionContainer'),
+        progressText: document.getElementById('progressText'),
+        progressPercent: document.getElementById('progressPercent'),
+        progressFill: document.getElementById('progressFill'),
+        finalScore: document.getElementById('finalScore'),
+        finalPercentage: document.getElementById('finalPercentage'),
+        badge: document.getElementById('badge'),
+        categoryStats: document.getElementById('categoryStats'),
+        emailBtn: document.getElementById('emailBtn'),
+        printBtn: document.getElementById('printBtn'),
+        retryBtn: document.getElementById('retryBtn'),
+        restartBtn: document.getElementById('restartBtn'),
+        nameError: document.getElementById('nameError'),
+        emailError: document.getElementById('emailError'),
+        gradeError: document.getElementById('gradeError')
+      };
+    },
+
+    bindEvents() {
+      this.elements.langToggle.addEventListener('click', () => this.toggleLanguage());
+      this.elements.startBtn.addEventListener('click', () => this.startQuiz());
+      this.elements.emailBtn.addEventListener('click', () => this.emailResults());
+      this.elements.printBtn.addEventListener('click', () => this.printCertificate());
+      this.elements.retryBtn.addEventListener('click', () => this.retryWrongAnswers());
+      this.elements.restartBtn.addEventListener('click', () => this.restartQuiz());
+    },
+
+    toggleLanguage() {
+      this.state.currentLanguage = this.state.currentLanguage === 'en' ? 'ar' : 'en';
+    },
+
+    validateInputs() {
+      let isValid = true;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Reset errors
+      this.elements.nameError.style.display = 'none';
+      this.elements.emailError.style.display = 'none';
+      this.elements.gradeError.style.display = 'none';
+
+      // Validate name
+      if (!this.elements.inputName.value.trim()) {
+        this.elements.nameError.style.display = 'block';
+        isValid = false;
+      }
+
+      // Validate email
+      if (!emailRegex.test(this.elements.inputEmail.value.trim())) {
+        this.elements.emailError.style.display = 'block';
+        isValid = false;
+      }
+
+      // Validate grade
+      if (!this.elements.inputGrade.value.trim()) {
+        this.elements.gradeError.style.display = 'block';
+        isValid = false;
+      }
+
+      return isValid;
+    },
+
+    startQuiz() {
+      if (!this.validateInputs()) return;
+
+      // Save student info
+      this.state.studentInfo = {
+        name: this.elements.inputName.value.trim(),
+        email: this.elements.inputEmail.value.trim(),
+        grade: this.elements.inputGrade.value.trim()
+      };
+
+      // Update display
+      this.elements.displayName.textContent = this.state.studentInfo.name;
+      this.elements.displayEmail.textContent = this.state.studentInfo.email;
+      this.elements.displayGrade.textContent = this.state.studentInfo.grade;
+
+      // Show quiz
+      this.elements.welcomeSection.classList.add('hidden');
+      this.elements.quizContent.classList.remove('hidden');
+      this.elements.timerContainer.classList.remove('hidden');
+
+      // Initialize category totals
+      this.questions.forEach(q => {
+        if (this.state.categoryScores[q.category]) {
+          this.state.categoryScores[q.category].total++;
+        }
+      });
+
+      // Start timer and show first question
+      this.startTimer();
+      this.showQuestion();
+    },
+
+    startTimer() {
+      this.state.timerInterval = setInterval(() => {
+        this.state.timeRemaining--;
+        
+        const minutes = Math.floor(this.state.timeRemaining / 60);
+        const seconds = this.state.timeRemaining % 60;
+        this.elements.timer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        if (this.state.timeRemaining <= 300) {
+          this.elements.timer.classList.add('warning');
+        }
+
+        if (this.state.timeRemaining <= 0) {
+          this.endQuiz();
+        }
+      }, 1000);
+    },
+
+    showQuestion() {
+      const question = this.questions[this.state.currentQuestionIndex];
+      
+      this.elements.questionContainer.innerHTML = `
+        <div class="question-header">
+          <div class="question-number">Question ${this.state.currentQuestionIndex + 1} of ${this.questions.length}</div>
+          <div class="question-category">${question.category}</div>
+        </div>
+        <div class="question-text">${question.question}</div>
+        <div class="options-container">
+          ${question.options.map((option, index) => `
+            <button class="option" data-index="${index}">${option}</button>
+          `).join('')}
+        </div>
+        <div id="feedback"></div>
+      `;
+
+      this.updateProgress();
+
+      // Add click handlers to options
+      const options = this.elements.questionContainer.querySelectorAll('.option');
+      options.forEach(option => {
+        option.addEventListener('click', (e) => this.selectAnswer(e));
+      });
+    },
+
+    selectAnswer(e) {
+      const selectedIndex = parseInt(e.target.dataset.index);
+      const question = this.questions[this.state.currentQuestionIndex];
+      const isCorrect = selectedIndex === question.correct;
+
+      // Record answer
+      this.state.answers.push({
+        questionIndex: this.state.currentQuestionIndex,
+        selectedIndex,
+        isCorrect
+      });
+
+      if (isCorrect) {
+        this.state.score++;
+        this.state.categoryScores[question.category].correct++;
+      }
+
+      // Disable all options
+      const options = this.elements.questionContainer.querySelectorAll('.option');
+      options.forEach((option, index) => {
+        option.disabled = true;
+        if (index === question.correct) {
+          option.classList.add('correct');
+        } else if (index === selectedIndex && !isCorrect) {
+          option.classList.add('wrong');
+        }
+      });
+
+      // Show feedback
+      const feedbackDiv = document.getElementById('feedback');
+      const feedbackText = question.feedback[this.state.currentLanguage];
+      feedbackDiv.innerHTML = `
+        <div class="feedback ${isCorrect ? 'correct' : 'incorrect'}">
+          ${isCorrect ? '✅ Correct!' : '❌ Incorrect'}
+          <div class="feedback-text">${feedbackText}</div>
+        </div>
+      `;
+
+      // Auto-advance after 2 seconds
+      setTimeout(() => {
+        if (this.state.currentQuestionIndex < this.questions.length - 1) {
+          this.state.currentQuestionIndex++;
+          this.showQuestion();
+        } else {
+          this.endQuiz();
+        }
+      }, 2000);
+    },
+
+    updateProgress() {
+      const total = this.questions.length;
+      const current = this.state.currentQuestionIndex + 1;
+      const percentage = Math.round((current / total) * 100);
+
+      this.elements.progressText.textContent = `Question ${current} of ${total}`;
+      this.elements.progressPercent.textContent = `${percentage}%`;
+      this.elements.progressFill.style.width = `${percentage}%`;
+    },
+
+    endQuiz() {
+      clearInterval(this.state.timerInterval);
+      
+      this.elements.quizContent.classList.add('hidden');
+      this.elements.timerContainer.classList.add('hidden');
+      this.elements.resultsContainer.classList.add('active');
+
+      const percentage = Math.round((this.state.score / this.questions.length) * 100);
+
+      this.elements.finalScore.textContent = `${this.state.score}/${this.questions.length}`;
+      this.elements.finalPercentage.textContent = `${percentage}%`;
+
+      // Set badge
+      let badgeClass = 'practice';
+      let badgeText = '🎯 Keep Practicing!';
+      
+      if (percentage >= 90) {
+        badgeClass = 'gold';
+        badgeText = '🏆 Gold Medal!';
+      } else if (percentage >= 75) {
+        badgeClass = 'silver';
+        badgeText = '🥈 Silver Medal!';
+      } else if (percentage >= 60) {
+        badgeClass = 'bronze';
+        badgeText = '🥉 Bronze Medal!';
+      }
+
+      this.elements.badge.className = `badge ${badgeClass}`;
+      this.elements.badge.textContent = badgeText;
+
+      // Show category stats
+      this.showCategoryStats();
+    },
+
+    showCategoryStats() {
+      this.elements.categoryStats.innerHTML = '';
+      
+      Object.entries(this.state.categoryScores).forEach(([category, scores]) => {
+        if (scores.total > 0) {
+          const percentage = Math.round((scores.correct / scores.total) * 100);
+          const statCard = document.createElement('div');
+          statCard.className = 'stat-card';
+          statCard.innerHTML = `
+            <div class="category-name">${category}</div>
+            <div class="category-score">${scores.correct}/${scores.total}</div>
+            <div class="category-percentage">${percentage}%</div>
+          `;
+          this.elements.categoryStats.appendChild(statCard);
+        }
+      });
+    },
+
+    emailResults() {
+      const subject = encodeURIComponent('Quiz Results - Unit 7 Mega Goal 3');
+      const body = encodeURIComponent(`
+Student: ${this.state.studentInfo.name}
+Email: ${this.state.studentInfo.email}
+Grade: ${this.state.studentInfo.grade}
+
+Score: ${this.state.score}/${this.questions.length}
+Percentage: ${Math.round((this.state.score / this.questions.length) * 100)}%
+
+Category Breakdown:
+${Object.entries(this.state.categoryScores).map(([cat, scores]) => 
+  `${cat}: ${scores.correct}/${scores.total}`
+).join('\n')}
+      `);
+      
+      window.location.href = `mailto:${this.state.studentInfo.email}?subject=${subject}&body=${body}`;
+    },
+
+    printCertificate() {
+      window.print();
+    },
+
+    retryWrongAnswers() {
+      const wrongAnswers = this.state.answers.filter(a => !a.isCorrect);
+      if (wrongAnswers.length === 0) {
+        alert('You got all answers correct! No questions to retry.');
+        return;
+      }
+
+      // Reset for retry
+      const wrongQuestionIndexes = wrongAnswers.map(a => a.questionIndex);
+      this.questions = this.questions.filter((q, idx) => wrongQuestionIndexes.includes(idx));
+      
+      this.state.currentQuestionIndex = 0;
+      this.state.score = 0;
+      this.state.answers = [];
+      this.state.timeRemaining = 1800; // 30 minutes for retry
+      
+      Object.keys(this.state.categoryScores).forEach(cat => {
+        this.state.categoryScores[cat] = { correct: 0, total: 0 };
+      });
+      
+      this.questions.forEach(q => {
+        this.state.categoryScores[q.category].total++;
+      });
+
+      this.elements.resultsContainer.classList.remove('active');
+      this.elements.quizContent.classList.remove('hidden');
+      this.elements.timerContainer.classList.remove('hidden');
+      
+      this.startTimer();
+      this.showQuestion();
+    },
+
+    restartQuiz() {
+      window.location.reload();
+    }
+  };
+
+  // Initialize the quiz when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => quizApp.init());
+  } else {
+    quizApp.init();
+  }
+
+})();
+</script>
+</body>
+</html>
